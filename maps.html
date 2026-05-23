@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalMap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ══════════════════════════════════════════
+         PANTALLA DE LOGIN
+    ══════════════════════════════════════════ -->
+    <div id="pantalla-login">
+        <div class="login-bg">
+            <div class="circulo c1"></div>
+            <div class="circulo c2"></div>
+            <div class="circulo c3"></div>
+        </div>
+        <div class="login-card">
+            <div class="login-logo">
+                <div class="login-icono">📍</div>
+                <h1 class="login-titulo">LocalMap</h1>
+                <p class="login-subtitulo">LOCATION</p>
+            </div>
+            <div class="login-form">
+                <div class="campo">
+                    <label for="login-usuario">Usuario</label>
+                    <input id="login-usuario" type="text" placeholder="Ingresá tu usuario" autocomplete="off">
+                </div>
+                <div class="campo">
+                    <label for="login-password">Contraseña</label>
+                    <input id="login-password" type="password" placeholder="Ingresá tu contraseña">
+                </div>
+                <p id="login-error" class="login-error">Usuario o contraseña incorrectos</p>
+                <button id="btn-login">Ingresar →</button>
+                <p class="login-hint">Demo: usuario <b>admin</b> / contraseña <b>1234</b></p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         PANTALLA DEL MAPA
+    ══════════════════════════════════════════ -->
+    <div id="pantalla-mapa" class="oculto">
+
+        <div class="titulo">
+            <img src="Logo.png" alt="Logo">
+            <div class="texto-titulo">
+                <h1>LocalMap</h1>
+                <p>LOCATION</p>
+            </div>
+            <button id="btn-cerrar-sesion">Cerrar sesión</button>
+        </div>
+
+        <div class="contenedor">
+
+            <!-- Panel lateral -->
+            <div class="panel">
+
+                <!-- Filtros de pins propios -->
+                <h2>Filtros</h2>
+                <label><input type="checkbox" class="filtro-check" data-categoria="Alimentación" checked> 🛒 Alimentación</label>
+                <label><input type="checkbox" class="filtro-check" data-categoria="Bebidas"      checked> 🍺 Bebidas</label>
+                <label><input type="checkbox" class="filtro-check" data-categoria="Hogar"        checked> 🏠 Hogar</label>
+                <label><input type="checkbox" class="filtro-check" data-categoria="Ropa"         checked> 👕 Ropa</label>
+
+                <!-- Agregar pin manual -->
+                <div class="agregar">
+                    <h2>Agregar pin</h2>
+                    <input id="input-nombre" type="text" placeholder="Nombre del lugar">
+                    <select id="select-categoria">
+                        <option>Alimentación</option>
+                        <option>Bebidas</option>
+                        <option>Hogar</option>
+                        <option>Ropa</option>
+                    </select>
+                    <button id="btn-agregar">Agregar pin</button>
+                    <p id="aviso-click">📍 Hacé click en el mapa para colocar el pin</p>
+                </div>
+
+                <!-- ── BUSCADOR DE COMERCIOS ── -->
+                <div class="buscador">
+                    <h2>Buscar comercios</h2>
+
+                    <label class="label-campo">Tipo de comercio</label>
+                    <select id="busq-tipo">
+                        <option>Supermercado</option>
+                        <option>Restaurante</option>
+                        <option>Café / Bar</option>
+                        <option>Farmacia</option>
+                        <option>Banco / ATM</option>
+                        <option>Ropa / Moda</option>
+                        <option>Panadería</option>
+                        <option>Ferretería</option>
+                    </select>
+
+                    <label class="label-campo">Radio de búsqueda</label>
+                    <select id="busq-radio">
+                        <option value="300">300 m</option>
+                        <option value="500" selected>500 m</option>
+                        <option value="1000">1 km</option>
+                        <option value="2000">2 km</option>
+                        <option value="5000">5 km</option>
+                    </select>
+
+                    <!-- Coords ocultas que se llenan con geolocalización -->
+                    <input type="hidden" id="busq-lat" value="-32.9468">
+                    <input type="hidden" id="busq-lng" value="-60.6393">
+
+                    <button id="btn-buscar">🔍 Buscar</button>
+
+                    <div class="resultados-header">
+                        <span id="conteo-resultados"></span>
+                        <button id="btn-limpiar-busqueda" class="btn-limpiar">✕ Limpiar</button>
+                    </div>
+
+                    <div id="lista-resultados"></div>
+                </div>
+
+            </div>
+
+            <div id="mapa" class="mapa"></div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>
